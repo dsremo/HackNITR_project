@@ -1,0 +1,58 @@
+[System]
+Name='Fraud Detection'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=12
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Time'
+Range=[0 10]
+NumMFs=3
+MF1='Low':'trimf',[0 2 4]
+MF2='Mid':'trimf',[4 5.5 7]
+MF3='High':'trimf',[7 8.5 10]
+
+[Input2]
+Name='Amount'
+Range=[0 100]
+NumMFs=3
+MF1='Low':'trimf',[0 5 10]
+MF2='Mid':'trimf',[10 30 50]
+MF3='High':'trimf',[50 70 100]
+
+[Input3]
+Name='Location'
+Range=[0 3]
+NumMFs=3
+MF1='India':'trimf',[0 0.5 1]
+MF2='Outside_India':'trimf',[1 1.5 2]
+MF3='Outside_Asia':'trimf',[2 2.5 3]
+
+[Output1]
+Name='Fraud_or_Not'
+Range=[0 3]
+NumMFs=3
+MF1='Legal':'trapmf',[0 0.25 0.75 1]
+MF2='Suspicious':'trapmf',[1 1.25 1.75 2]
+MF3='Fraud':'trapmf',[2 2.25 2.75 3]
+
+[Rules]
+2 1 1, 1 (1) : 1
+2 2 1, 1 (1) : 1
+2 1 2, 1 (1) : 1
+1 3 1, 2 (1) : 1
+1 3 2, 2 (1) : 1
+1 3 3, 3 (1) : 1
+1 2 3, 2 (1) : 1
+2 2 2, 1 (1) : 1
+3 3 2, 2 (1) : 1
+3 1 2, 1 (1) : 1
+1 1 2, 2 (1) : 1
+1 1 3, 2 (1) : 1
